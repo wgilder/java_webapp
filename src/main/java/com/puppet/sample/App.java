@@ -1,4 +1,5 @@
 package com.puppet.sample;
+import com.puppet.sample.langs.Polyglot;
 
 import spark.ModelAndView;
 import spark.Request;
@@ -14,11 +15,6 @@ import static spark.Spark.before;
 
 public class App
 {
-
-  public String enMsg()
-  {
-    return "Hello World!";
-  }
 
   private static String requestInfoToString(Request request) {
     StringBuilder sb = new StringBuilder();
@@ -42,7 +38,12 @@ public class App
         System.out.println(requestInfoToString(request));
     });
 
-    get("/", App::helloWorld, new ThymeleafTemplateEngine());
+    get("/", (request, response) -> {
+      response.redirect("/en");
+      return null;
+    });
+
+    get("/:lang", App::helloWorld, new ThymeleafTemplateEngine());
 
   }
 
@@ -52,8 +53,23 @@ public class App
     App t = new App();
     params.put("version", t.getClass().getPackage().getImplementationVersion() );
 
-    App test = new App();
-    params.put("lang", test.enMsg());
+    Polyglot p = new Polyglot();
+
+    switch(req.params(":lang")) {
+      case "en": params.put("lang", p.enMsg());
+                 break;
+      case "sp": params.put("lang", p.spMsg());
+                 break;
+      case "zh": params.put("lang", p.zhMsg());
+                 break;
+      case "ar": params.put("lang", p.arMsg());
+                 break;
+      case "hi": params.put("lang", p.hiMsg());
+                 break;
+      default: String msg = "I don't know that language ~> ";
+               msg += req.params(":lang");
+               params.put("lang", msg); 
+    }
 
     return new ModelAndView(params, "index");
   }

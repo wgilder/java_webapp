@@ -35,10 +35,38 @@ public class TestRoutes
 
     @Test
     public void testEnMsg() throws IOException {
-        TestResponse res = request("GET", "/");
+        TestResponse res = request("GET", "/en");
         assertEquals(200, res.status);
         assertTrue(res.body.contains("Hello World!"));
 	}
+
+	@Test
+    public void testSpMsg() throws IOException {
+        TestResponse res = request("GET", "/sp");
+        assertEquals(200, res.status);
+        assertTrue(res.body.contains("¡Hola Mundo!"));
+	}
+
+	@Test
+    public void testZhMsg() throws IOException {
+        TestResponse res = request("GET", "/zh");
+        assertEquals(200, res.status);
+        assertTrue(res.body.contains("你好，世界!"));
+	}
+
+	@Test
+    public void testHiMsg() throws IOException {
+        TestResponse res = request("GET", "/hi");
+        assertEquals(200, res.status);
+        assertTrue(res.body.contains("नमस्ते दुनिया"));
+	}
+
+	@Test
+    public void testArMsg() throws IOException {
+        TestResponse res = request("GET", "/ar");
+        assertEquals(200, res.status);
+        assertTrue(res.body.contains("مرحبا بالعالم!"));
+    }
 
     private TestResponse request(String method, String path) throws java.io.IOException {
 		try {
