@@ -21,7 +21,7 @@ java -jar target/puppet-webapp-<VERSION>.jar [-DappPort=XXXX]
 
 Dependency projects
 -------------------
-[Spark Puppet Webapp Spanish Language](https://github.com/ipcrm/spark_puppet_webapp_lang_sp)
+[Java Webapp Polyglot](https://github.com/ipcrm/java_webapp_polyglot.git)
 
 
 
