@@ -13,3 +13,4 @@ buildNumber.properties
 bin/
 .classpath
 .settings/
+.project
