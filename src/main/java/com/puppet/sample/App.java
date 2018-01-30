@@ -4,6 +4,7 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 import spark.Spark;
+import spark.template.thymeleaf.ThymeleafTemplateEngine;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -41,8 +42,20 @@ public class App
         System.out.println(requestInfoToString(request));
     });
 
-    get("/", (request,response) -> "Hello World!");
+    get("/", App::helloWorld, new ThymeleafTemplateEngine());
 
+  }
+
+  public static ModelAndView helloWorld(Request req, Response res) {
+    Map<String, Object> params = new HashMap<>();
+
+    App t = new App();
+    params.put("version", t.getClass().getPackage().getImplementationVersion() );
+
+    App test = new App();
+    params.put("lang", test.enMsg());
+
+    return new ModelAndView(params, "index");
   }
 
 }
