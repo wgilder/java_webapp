@@ -35,7 +35,7 @@ public class App
       Spark.port(9999);
     }
 
-    Spark.threadPool(1000, 1000,60000);
+    Spark.threadPool(10, 5, 600);
 
     before((request, response) -> {
         System.out.println(requestInfoToString(request));
